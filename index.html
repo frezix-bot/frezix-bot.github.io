@@ -4,287 +4,786 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080d1a">
+  <meta name="theme-color" content="#05070d">
   <meta name="description" content="Meet Frezix, the Discord bot by Febreze Gamerz for utilities, moderation, invite tracking, role management and server automation.">
   <meta property="og:title" content="Frezix | Upgrade Your Discord">
   <meta property="og:description" content="Utilities, moderation, invite tracking and server management in one Discord bot.">
   <meta property="og:image" content="assets/frezix-banner.png">
-  <title>Frezix | Discord Bot</title>
+  <title>Frezix — Upgrade Your Discord</title>
   <link rel="icon" href="assets/frezix-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg:#080d1a;
-      --panel:#101a2c;
-      --panel2:#0c1526;
-      --text:#e8f1ff;
-      --muted:#a6b6d0;
-      --blue:#00c8ff;
-      --purple:#647bff;
-      --border:#20344f;
-      --radius:18px;
+      --bg:#05070d;
+      --surface:#0b111d;
+      --surface2:#0e1726;
+      --text:#f3f7ff;
+      --muted:#9aa9bf;
+      --cyan:#00d5ff;
+      --blue:#5577ff;
+      --violet:#9a69ff;
+      --line:rgba(151,184,224,.13);
+      --radius:22px;
+      --width:1160px;
     }
-    * {box-sizing:border-box}
-    html {scroll-behavior:smooth;scroll-padding-top:90px}
+
+    * { box-sizing:border-box; }
+
+    html {
+      scroll-behavior:smooth;
+      scroll-padding-top:100px;
+    }
+
     body {
       margin:0;
-      background:radial-gradient(ellipse at top,#102747 0%,var(--bg) 55%);
       color:var(--text);
-      font:16px/1.7 Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      font:16px/1.7 "DM Sans",Arial,sans-serif;
+      overflow-x:hidden;
     }
-    a {color:var(--blue)}
-    img {max-width:100%}
-    .container {width:min(1120px,90%);margin:auto}
+
+    body:before {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(120,160,220,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(120,160,220,.035) 1px,transparent 1px);
+      background-size:58px 58px;
+      mask-image:linear-gradient(to bottom,black,transparent 85%);
+    }
+
+    body:after {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:radial-gradient(ellipse at 50% -20%,rgba(0,190,255,.13),transparent 55%);
+    }
+
+    a { color:inherit; }
+    img { max-width:100%; }
+
+    .container {
+      width:min(var(--width),90%);
+      margin-inline:auto;
+    }
+
+    .glow {
+      position:fixed;
+      width:460px;
+      height:460px;
+      border-radius:50%;
+      filter:blur(110px);
+      opacity:.17;
+      z-index:-1;
+      pointer-events:none;
+      animation:float 15s ease-in-out infinite alternate;
+    }
+
+    .glow.one {
+      background:#007bff;
+      top:5%;
+      left:-250px;
+    }
+
+    .glow.two {
+      background:#743cff;
+      right:-280px;
+      top:48%;
+      animation-delay:-7s;
+    }
+
+    @keyframes float {
+      to { transform:translate(90px,70px) scale(1.15); }
+    }
+
     header {
-      position:sticky;top:0;z-index:10;
-      background:rgba(8,13,26,.88);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:20;
+      border-bottom:1px solid transparent;
+      background:rgba(5,7,13,.72);
+      backdrop-filter:blur(20px);
+      transition:border-color .25s,background .25s;
     }
+
+    header.scrolled {
+      border-color:var(--line);
+      background:rgba(5,7,13,.91);
+    }
+
     nav {
-      min-height:76px;display:flex;align-items:center;
-      justify-content:space-between;gap:22px;flex-wrap:wrap;
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
     }
+
     .brand {
-      display:flex;align-items:center;gap:12px;
-      color:var(--text);font-size:1.3rem;font-weight:900;
-      text-decoration:none;letter-spacing:2px;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      text-decoration:none;
+      font:700 1.18rem "Space Grotesk",sans-serif;
+      letter-spacing:2px;
     }
-    .brand img {width:42px;height:42px;object-fit:contain;border-radius:12px}
-    .navlinks {display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+
+    .brand img {
+      width:40px;
+      height:40px;
+      object-fit:contain;
+      border-radius:12px;
+      filter:drop-shadow(0 0 16px rgba(0,213,255,.24));
+    }
+
+    .navlinks {
+      display:flex;
+      align-items:center;
+      gap:27px;
+    }
+
     .navlinks a {
-      color:var(--muted);text-decoration:none;font-size:.94rem;
+      font-size:.92rem;
+      color:var(--muted);
+      text-decoration:none;
       transition:color .2s;
     }
-    .navlinks a:hover {color:var(--blue)}
-    .navlinks .nav-invite {color:var(--blue);font-weight:bold}
-    .hero {padding:65px 0 70px;text-align:center}
-    .banner-wrap {
-      position:relative;max-width:900px;margin:0 auto 35px;
-      border:1px solid var(--border);border-radius:24px;
-      overflow:hidden;background:linear-gradient(135deg,#102747,#11182f);
-      box-shadow:0 25px 90px rgba(0,200,255,.09);
+
+    .navlinks a:hover { color:var(--cyan); }
+    .navlinks .nav-invite { color:var(--cyan);font-weight:700; }
+
+    .menu-toggle {
+      display:none;
+      background:none;
+      border:1px solid var(--line);
+      color:white;
+      border-radius:12px;
+      padding:9px 12px;
+      font-size:1.1rem;
     }
-    .banner {display:block;width:100%;aspect-ratio:5/2;object-fit:cover}
-    .tag {
-      display:inline-block;color:var(--blue);letter-spacing:4px;
-      font-size:.78rem;font-weight:bold;text-transform:uppercase;
+
+    .hero {
+      position:relative;
+      text-align:center;
+      padding:76px 0 100px;
     }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:7px 13px;
+      border:1px solid rgba(0,213,255,.2);
+      border-radius:999px;
+      background:rgba(0,213,255,.055);
+      color:#9ceeff;
+      font-size:.76rem;
+      font-weight:700;
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .eyebrow:before {
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 12px var(--cyan);
+    }
+
+    h1,h2,h3,p { margin-top:0; }
+
     h1 {
-      font-size:clamp(3rem,8vw,6rem);line-height:1.05;
-      margin:15px 0;letter-spacing:-3px;
+      font:700 clamp(3.6rem,10vw,7.7rem)/.98 "Space Grotesk",sans-serif;
+      letter-spacing:-.075em;
+      margin:25px 0 20px;
     }
+
     .gradient {
-      background:linear-gradient(90deg,var(--blue),var(--purple));
-      color:transparent;background-clip:text;-webkit-background-clip:text;
+      background:linear-gradient(100deg,#fff 5%,#8cecff 38%,#7a8cff 70%,#c49aff);
+      color:transparent;
+      background-clip:text;
+      -webkit-background-clip:text;
     }
-    .subtitle {max-width:690px;margin:20px auto;color:var(--muted);font-size:1.1rem}
-    .buttons {display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:28px}
+
+    .subtitle {
+      max-width:670px;
+      margin:0 auto;
+      color:var(--muted);
+      font-size:clamp(1rem,2vw,1.15rem);
+    }
+
+    .buttons {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:13px;
+      flex-wrap:wrap;
+      margin-top:32px;
+    }
+
     .button {
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;
-      padding:13px 22px;border-radius:11px;text-decoration:none;
-      font-weight:bold;border:1px solid var(--border);
-      transition:transform .2s,border-color .2s,background .2s;
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:13px 21px;
+      border:1px solid var(--line);
+      border-radius:13px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:.94rem;
+      transition:transform .22s,border-color .22s,box-shadow .22s,background .22s;
+      overflow:hidden;
     }
-    .button:hover {transform:translateY(-2px);border-color:var(--blue)}
+
+    .button:hover {
+      transform:translateY(-3px);
+      border-color:rgba(0,213,255,.55);
+      box-shadow:0 12px 35px rgba(0,180,255,.12);
+    }
+
     .primary {
-      color:#06101c;background:var(--blue);border-color:var(--blue);
-      box-shadow:0 8px 30px rgba(0,200,255,.16);
+      color:#031019;
+      background:linear-gradient(110deg,#62eaff,var(--cyan));
+      border-color:transparent;
+      box-shadow:0 8px 35px rgba(0,213,255,.17);
     }
-    .secondary {color:var(--text);background:rgba(16,26,44,.75)}
-    .button img {width:19px;height:19px;object-fit:contain}
+
+    .primary:hover {
+      box-shadow:0 14px 45px rgba(0,213,255,.28);
+    }
+
+    .secondary {
+      color:var(--text);
+      background:rgba(255,255,255,.035);
+    }
+
+    .button img {
+      width:19px;
+      height:19px;
+      object-fit:contain;
+    }
+
+    .banner-wrap {
+      position:relative;
+      max-width:920px;
+      margin:0 auto 45px;
+      padding:1px;
+      border-radius:24px;
+      background:linear-gradient(130deg,rgba(0,213,255,.55),rgba(120,90,255,.2),rgba(255,255,255,.06));
+      box-shadow:0 25px 100px rgba(0,150,255,.11);
+      animation:rise .9s both;
+    }
+
+    .banner-inner {
+      overflow:hidden;
+      border-radius:23px;
+      background:#0b1220;
+    }
+
+    .banner {
+      display:block;
+      width:100%;
+      aspect-ratio:5/2;
+      object-fit:cover;
+      transition:transform .8s;
+    }
+
+    .banner-wrap:hover .banner {
+      transform:scale(1.025);
+    }
+
     .stats {
-      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
-      max-width:720px;margin:45px auto 0;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:13px;
+      max-width:760px;
+      margin:58px auto 0;
     }
+
     .stat {
-      padding:17px;border:1px solid var(--border);
-      background:rgba(16,26,44,.65);border-radius:14px;
+      padding:17px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:linear-gradient(145deg,rgba(17,29,48,.76),rgba(8,14,25,.76));
+      backdrop-filter:blur(12px);
     }
-    .stat strong {display:block;color:var(--blue);font-size:1.05rem}
-    .stat span {font-size:.85rem;color:var(--muted)}
-    section.content-section {padding:65px 0}
-    .section-heading{text-align:center;margin-bottom:32px}
-    .section-heading h2 {font-size:clamp(2rem,5vw,2.8rem);margin:8px 0}
-    .section-heading p {color:var(--muted);margin:0}
-    .grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+
+    .stat strong {
+      display:block;
+      font:700 1rem "Space Grotesk",sans-serif;
+      color:#a6efff;
+    }
+
+    .stat span {
+      font-size:.82rem;
+      color:var(--muted);
+    }
+
+    section.content-section { padding:76px 0; }
+
+    .section-heading {
+      text-align:center;
+      margin:0 auto 38px;
+      max-width:700px;
+    }
+
+    .section-heading h2 {
+      font:700 clamp(2rem,5vw,3.25rem)/1.12 "Space Grotesk",sans-serif;
+      letter-spacing:-.045em;
+      margin:13px 0;
+    }
+
+    .section-heading p {
+      color:var(--muted);
+      margin:0;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
     .card {
-      padding:25px;background:linear-gradient(145deg,rgba(16,26,44,.96),rgba(12,21,38,.96));
-      border:1px solid var(--border);border-radius:var(--radius);
-      transition:transform .2s,border-color .2s;
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      padding:25px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(145deg,rgba(15,25,42,.92),rgba(8,14,25,.94));
+      transition:transform .28s,border-color .28s,background .28s;
     }
-    .card:hover {transform:translateY(-4px);border-color:#087ea3}
+
+    .card:before {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      opacity:0;
+      background:radial-gradient(circle at 15% 0%,rgba(0,213,255,.12),transparent 60%);
+      transition:opacity .3s;
+    }
+
+    .card:hover {
+      transform:translateY(-7px);
+      border-color:rgba(0,213,255,.38);
+      background:linear-gradient(145deg,rgba(18,34,55,.98),rgba(8,14,25,.98));
+    }
+
+    .card:hover:before { opacity:1; }
+
     .feature-icon {
-      display:flex;align-items:center;justify-content:center;
-      width:54px;height:54px;margin-bottom:17px;
-      background:rgba(0,200,255,.09);border:1px solid rgba(0,200,255,.2);
-      border-radius:15px;
+      display:grid;
+      place-items:center;
+      width:53px;
+      height:53px;
+      margin-bottom:20px;
+      border:1px solid rgba(0,213,255,.18);
+      border-radius:16px;
+      background:rgba(0,213,255,.07);
     }
-    .feature-icon img {width:28px;height:28px;object-fit:contain}
-    .card h3 {margin:0 0 9px;font-size:1.13rem}
-    .card p {margin:0;color:var(--muted);font-size:.95rem}
+
+    .feature-icon img {
+      width:27px;
+      height:27px;
+      object-fit:contain;
+    }
+
+    .card h3 {
+      font:600 1.13rem "Space Grotesk",sans-serif;
+      margin:0 0 8px;
+    }
+
+    .card p {
+      color:var(--muted);
+      font-size:.93rem;
+      margin:0;
+    }
+
     .cta {
-      padding:45px 25px;text-align:center;
-      border:1px solid var(--border);border-radius:24px;
-      background:radial-gradient(ellipse at top,rgba(0,200,255,.1),transparent 70%),var(--panel2);
+      position:relative;
+      overflow:hidden;
+      padding:58px 25px;
+      text-align:center;
+      border:1px solid rgba(0,213,255,.2);
+      border-radius:28px;
+      background:radial-gradient(ellipse at 50% 0%,rgba(0,213,255,.14),transparent 65%),linear-gradient(145deg,#0d1a2b,#080d17);
     }
-    .cta h2 {font-size:clamp(1.8rem,5vw,2.5rem);margin:0 0 10px}
-    .cta p {color:var(--muted);max-width:600px;margin:0 auto}
-    .legal-links {display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:23px}
+
+    .cta:after {
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      border:1px solid rgba(0,213,255,.12);
+      border-radius:50%;
+      top:-190px;
+      left:calc(50% - 130px);
+      box-shadow:0 0 0 25px rgba(0,213,255,.025),0 0 0 55px rgba(0,213,255,.018);
+    }
+
+    .cta h2 {
+      position:relative;
+      font:700 clamp(2rem,5vw,3rem)/1.1 "Space Grotesk",sans-serif;
+      letter-spacing:-.05em;
+      margin:14px 0;
+    }
+
+    .cta p {
+      color:var(--muted);
+      max-width:590px;
+      margin:0 auto;
+    }
+
+    .cta .buttons {
+      position:relative;
+      z-index:1;
+    }
+
+    .legal-links {
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:25px;
+    }
+
     .legal-links a {
-      display:inline-flex;align-items:center;gap:9px;
-      padding:12px 16px;border:1px solid var(--border);
-      border-radius:10px;text-decoration:none;color:var(--text);
-      background:rgba(16,26,44,.7);
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:12px 16px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      text-decoration:none;
+      background:rgba(255,255,255,.025);
+      transition:.2s;
     }
-    .legal-links img {width:20px;height:20px;object-fit:contain}
-    footer {margin-top:65px;border-top:1px solid var(--border);padding:30px 0;color:var(--muted)}
-    .footer-inner {display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    footer p {margin:5px 0;font-size:.9rem}
-    footer a {margin-left:14px;text-decoration:none}
-    @media(max-width:800px) {
-      .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
-      .hero {padding-top:40px}
-      .navlinks {gap:14px}
+
+    .legal-links a:hover {
+      border-color:rgba(0,213,255,.45);
+      transform:translateY(-2px);
     }
-    @media(max-width:560px) {
-      .container {width:92%}
-      nav {justify-content:center;padding:14px 0}
-      .navlinks {justify-content:center;gap:13px}
-      .navlinks a {font-size:.87rem}
-      .hero {padding:32px 0 45px}
-      h1 {letter-spacing:-1.5px}
-      .banner-wrap {border-radius:15px;margin-bottom:25px}
-      .grid {grid-template-columns:1fr}
-      .stats {gap:8px}
-      .stat {padding:12px 6px}
-      .stat span {font-size:.75rem}
-      section.content-section {padding:42px 0}
-      .card {padding:21px}
-      .footer-inner {justify-content:center;text-align:center}
-      footer a {margin:0 7px}
+
+    .legal-links img {
+      width:20px;
+      height:20px;
+      object-fit:contain;
+    }
+
+    footer {
+      margin-top:35px;
+      border-top:1px solid var(--line);
+      padding:30px 0;
+      color:var(--muted);
+    }
+
+    .footer-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    footer p { margin:4px 0;font-size:.88rem; }
+    footer strong { color:var(--text);letter-spacing:1px; }
+    footer a { margin-left:17px;text-decoration:none;font-size:.88rem; }
+    footer a:hover { color:var(--cyan); }
+
+    .reveal {
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .reveal.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .delay-1 { transition-delay:.08s; }
+    .delay-2 { transition-delay:.16s; }
+
+    @keyframes rise {
+      from { opacity:0;transform:translateY(22px); }
+      to { opacity:1;transform:translateY(0); }
+    }
+
+    @media(max-width:850px) {
+      .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .navlinks { gap:17px; }
+    }
+
+    @media(max-width:640px) {
+      nav { min-height:68px; }
+      .menu-toggle { display:block; }
+
+      .navlinks {
+        display:none;
+        position:absolute;
+        top:68px;
+        left:5%;
+        right:5%;
+        padding:17px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        border:1px solid var(--line);
+        border-radius:16px;
+        background:rgba(7,12,21,.97);
+        box-shadow:0 18px 50px rgba(0,0,0,.4);
+      }
+
+      .navlinks.open { display:flex; }
+      .navlinks a { padding:11px 8px; }
+      .hero { padding:48px 0 65px; }
+
+      h1 {
+        font-size:clamp(3.4rem,17vw,5.2rem);
+        letter-spacing:-.07em;
+      }
+
+      .banner-wrap {
+        border-radius:17px;
+        margin-bottom:34px;
+      }
+
+      .banner-inner { border-radius:16px; }
+      .stats { gap:8px;margin-top:40px; }
+      .stat { padding:13px 6px; }
+      .stat span { font-size:.72rem; }
+      .grid { grid-template-columns:1fr; }
+      .card { padding:22px; }
+      section.content-section { padding:52px 0; }
+      .cta { padding:42px 20px; }
+
+      .footer-inner {
+        justify-content:center;
+        text-align:center;
+      }
+
+      footer a { margin:0 8px; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*:before,*:after {
+        scroll-behavior:auto!important;
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+      }
+
+      .reveal {
+        opacity:1;
+        transform:none;
+      }
     }
   </style>
 </head>
+
 <body>
-<header>
-  <nav class="container">
-    <a class="brand" href="index.html">
-      <img src="assets/frezix-logo.png" alt="Frezix logo">
-      <span>FREZIX</span>
-    </a>
-    <div class="navlinks">
-      <a href="#features">Features</a>
-      <a href="tos.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support</a>
-      <a class="nav-invite" href="https://discord.com/oauth2/authorize?client_id=1489309759172644864&amp;scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer">Add Bot ↗</a>
-    </div>
-  </nav>
-</header>
+  <div class="glow one"></div>
+  <div class="glow two"></div>
 
-<main>
-  <section class="hero container">
-    <div class="banner-wrap">
-      <img class="banner" src="assets/frezix-banner.png" alt="Frezix Discord bot banner">
-    </div>
-    <div class="tag">Your Discord, upgraded</div>
-    <h1>Meet <span class="gradient">Frezix.</span></h1>
-    <p class="subtitle">
-      One powerful Discord bot for server utilities, moderation, invite tracking,
-      role management and community automation. Built by Febreze Gamerz.
-    </p>
-    <div class="buttons">
-      <a class="button primary" href="https://discord.com/oauth2/authorize?client_id=1489309759172644864&amp;scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer">
-        <img src="assets/frezix-logo.png" alt=""> Add Frezix to Discord ↗
+  <header id="topbar">
+    <nav class="container">
+      <a class="brand" href="index.html">
+        <img src="assets/frezix-logo.png" alt="Frezix logo">
+        <span>FREZIX</span>
       </a>
-      <a class="button secondary" href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">
-        Join Support Server
-      </a>
-    </div>
-    <div class="stats">
-      <div class="stat"><strong>Utilities</strong><span>Useful server tools</span></div>
-      <div class="stat"><strong>Moderation</strong><span>Manage your community</span></div>
-      <div class="stat"><strong>Automation</strong><span>Make tasks easier</span></div>
-    </div>
-  </section>
 
-  <section class="content-section container" id="features">
-    <div class="section-heading">
-      <div class="tag">What Frezix can do</div>
-      <h2>Features built for your server</h2>
-      <p>Helpful tools to keep your Discord community organized.</p>
-    </div>
-    <div class="grid">
-      <article class="card">
-        <div class="feature-icon"><img src="assets/utility.svg" alt="Utility icon"></div>
-        <h3>Utility Commands</h3>
-        <p>Access user and server information, check uptime and ping, and view invite statistics and leaderboards.</p>
-      </article>
-      <article class="card">
-        <div class="feature-icon"><img src="assets/moderation.svg" alt="Moderation icon"></div>
-        <h3>Moderation</h3>
-        <p>Use supported moderation commands for bans, kicks, unbans and bulk message deletion.</p>
-      </article>
-      <article class="card">
-        <div class="feature-icon"><img src="assets/roles.svg" alt="Role management icon"></div>
-        <h3>Role Management</h3>
-        <p>Configure autoroles, assign roles and manage temporary role access.</p>
-      </article>
-      <article class="card">
-        <div class="feature-icon"><img src="assets/automation.svg" alt="Automation icon"></div>
-        <h3>Server Automation</h3>
-        <p>Configure welcome and farewell messages, custom messages, embeds and server settings.</p>
-      </article>
-      <article class="card">
-        <div class="feature-icon"><img src="assets/invites.svg" alt="Invite tracking icon"></div>
-        <h3>Invite Tracking</h3>
-        <p>Track invitations, view invite information and explore invitation leaderboards.</p>
-      </article>
-      <article class="card">
-        <div class="feature-icon"><img src="assets/support.svg" alt="Community support icon"></div>
-        <h3>Community Support</h3>
-        <p>Get help with Frezix and ask questions in the official Discord support community.</p>
-      </article>
-    </div>
-  </section>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
 
-  <section class="content-section container">
-    <div class="cta">
-      <div class="tag">Ready to get started?</div>
-      <h2>Give your Discord an upgrade.</h2>
-      <p>Invite Frezix to your server and explore the tools available to your community.</p>
+      <div class="navlinks" id="navlinks">
+        <a href="#features">Features</a>
+        <a href="tos.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support ↗</a>
+        <a class="nav-invite" href="/invite">Add Bot ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="banner-wrap">
+        <div class="banner-inner">
+          <img class="banner" src="assets/frezix-banner.png" alt="Frezix Discord bot banner">
+        </div>
+      </div>
+
+      <div class="eyebrow">Your Discord, upgraded</div>
+      <h1>Meet <span class="gradient">Frezix.</span></h1>
+
+      <p class="subtitle">
+        One powerful Discord bot for server utilities, moderation, invite tracking,
+        role management and community automation. Built by Febreze Gamerz.
+      </p>
+
       <div class="buttons">
-        <a class="button primary" href="https://discord.com/oauth2/authorize?client_id=1489309759172644864&amp;scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer">Add Frezix ↗</a>
-        <a class="button secondary" href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Get Support</a>
+        <a class="button primary" href="/invite">
+          <img src="assets/frezix-logo.png" alt="">
+          Add Frezix to Discord ↗
+        </a>
+
+        <a class="button secondary" href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">
+          Join Support Server ↗
+        </a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>Utilities</strong>
+          <span>Useful server tools</span>
+        </div>
+        <div class="stat">
+          <strong>Moderation</strong>
+          <span>Manage your community</span>
+        </div>
+        <div class="stat">
+          <strong>Automation</strong>
+          <span>Make tasks easier</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section container" id="features">
+      <div class="section-heading reveal">
+        <div class="eyebrow">What Frezix can do</div>
+        <h2>Everything your server needs.<br><span class="gradient">Nothing you don't.</span></h2>
+        <p>Helpful tools to keep your Discord community organized and running smoothly.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card reveal">
+          <div class="feature-icon"><img src="assets/utility.svg" alt=""></div>
+          <h3>Utility Commands</h3>
+          <p>Access user and server information, check uptime and ping, and view invite statistics and leaderboards.</p>
+        </article>
+
+        <article class="card reveal delay-1">
+          <div class="feature-icon"><img src="assets/moderation.svg" alt=""></div>
+          <h3>Moderation</h3>
+          <p>Use supported moderation commands for bans, kicks, unbans and bulk message deletion.</p>
+        </article>
+
+        <article class="card reveal delay-2">
+          <div class="feature-icon"><img src="assets/roles.svg" alt=""></div>
+          <h3>Role Management</h3>
+          <p>Configure autoroles, assign roles and manage temporary role access.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="feature-icon"><img src="assets/automation.svg" alt=""></div>
+          <h3>Server Automation</h3>
+          <p>Configure welcome and farewell messages, custom messages, embeds and server settings.</p>
+        </article>
+
+        <article class="card reveal delay-1">
+          <div class="feature-icon"><img src="assets/invites.svg" alt=""></div>
+          <h3>Invite Tracking</h3>
+          <p>Track invitations, view invite information and explore invitation leaderboards.</p>
+        </article>
+
+        <article class="card reveal delay-2">
+          <div class="feature-icon"><img src="assets/support.svg" alt=""></div>
+          <h3>Community Support</h3>
+          <p>Get help with Frezix and ask questions in the official Discord support community.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section container">
+      <div class="cta reveal">
+        <div class="eyebrow">Ready to get started?</div>
+        <h2>Give your Discord<br><span class="gradient">an upgrade.</span></h2>
+        <p>Invite Frezix to your server and explore the tools available to your community.</p>
+
+        <div class="buttons">
+          <a class="button primary" href="/invite">Add Frezix ↗</a>
+          <a class="button secondary" href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Get Support ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section container">
+      <div class="section-heading reveal">
+        <div class="eyebrow">Transparency matters</div>
+        <h2>Clear rules. <span class="gradient">Clear policies.</span></h2>
+        <p>Learn about the terms for using Frezix and how information may be handled.</p>
+
+        <div class="legal-links">
+          <a href="tos.html"><img src="assets/terms.svg" alt=""> Terms of Service</a>
+          <a href="privacy.html"><img src="assets/privacy.svg" alt=""> Privacy Policy</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <p><strong>FREZIX</strong> · Developed by Febreze Gamerz</p>
+        <p>© <span id="year">2026</span> Febreze Gamerz. All rights reserved.</p>
+      </div>
+
+      <div>
+        <a href="tos.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support</a>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section class="content-section container">
-    <div class="section-heading">
-      <div class="tag">Transparency matters</div>
-      <h2>Clear rules. Clear policies.</h2>
-      <p>Learn about the terms for using Frezix and how information may be handled.</p>
-      <div class="legal-links">
-        <a href="tos.html"><img src="assets/terms.svg" alt=""> Terms of Service</a>
-        <a href="privacy.html"><img src="assets/privacy.svg" alt=""> Privacy Policy</a>
-      </div>
-    </div>
-  </section>
-</main>
+  <script>
+    const header = document.getElementById("topbar");
+    const menu = document.getElementById("menuToggle");
+    const links = document.getElementById("navlinks");
 
-<footer>
-  <div class="container footer-inner">
-    <div>
-      <p><strong>FREZIX</strong> · Developed by Febreze Gamerz</p>
-      <p>© 2026 Febreze Gamerz. All rights reserved.</p>
-    </div>
-    <div>
-      <a href="tos.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support</a>
-    </div>
-  </div>
-</footer>
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 12);
+    }, { passive: true });
+
+    menu.addEventListener("click", () => {
+      const open = links.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
+      menu.textContent = open ? "✕" : "☰";
+    });
+
+    links.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        links.classList.remove("open");
+        menu.setAttribute("aria-expanded", "false");
+        menu.textContent = "☰";
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>
