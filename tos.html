@@ -4,78 +4,396 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080d1a">
+  <meta name="theme-color" content="#05070d">
   <meta name="description" content="Read the Terms of Service for Frezix, a Discord bot developed by Febreze Gamerz.">
-  <title>Terms of Service | Frezix</title>
-  <link rel="icon" href="assets/frezix-logo.png">
+  <title>Terms of Service — Frezix</title>
+  <link rel="icon" type="image/png" href="assets/frezix-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg:#080d1a;--panel:#101a2c;--text:#e8f1ff;
-      --muted:#a6b6d0;--blue:#00c8ff;--border:#20344f;
+      --bg:#05070d;
+      --panel:#0c1422;
+      --panel2:#101c2e;
+      --text:#f1f6ff;
+      --muted:#9baac0;
+      --cyan:#00d5ff;
+      --blue:#6485ff;
+      --border:rgba(150,185,225,.14);
+      --width:1100px;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:90px}
-    body{
-      margin:0;background:radial-gradient(ellipse at top,#102747 0%,var(--bg) 55%);
-      color:var(--text);font:16px/1.8 Arial,Helvetica,sans-serif;
+
+    * { box-sizing:border-box; }
+
+    html {
+      scroll-behavior:smooth;
+      scroll-padding-top:110px;
     }
-    a{color:var(--blue)}
-    header{
-      position:sticky;top:0;z-index:5;background:rgba(8,13,26,.9);
-      backdrop-filter:blur(15px);border-bottom:1px solid var(--border);
-      padding:15px 5%;
+
+    body {
+      margin:0;
+      color:var(--text);
+      background:var(--bg);
+      font:16px/1.8 "DM Sans",sans-serif;
+      overflow-x:hidden;
     }
-    nav{
-      max-width:1050px;margin:auto;display:flex;align-items:center;
-      justify-content:space-between;gap:18px;flex-wrap:wrap;
+
+    body:before {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(120,160,220,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(120,160,220,.035) 1px,transparent 1px);
+      background-size:55px 55px;
+      mask-image:linear-gradient(to bottom,black,transparent 90%);
     }
-    .brand{
-      display:flex;align-items:center;gap:10px;color:var(--text);
-      font-size:1.25rem;font-weight:900;letter-spacing:2px;text-decoration:none;
+
+    body:after {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:radial-gradient(ellipse at 50% 0%,rgba(0,180,255,.13),transparent 55%);
     }
-    .brand img{width:38px;height:38px;object-fit:contain;border-radius:10px}
-    .links{display:flex;gap:18px;flex-wrap:wrap}
-    .links a{color:var(--muted);text-decoration:none;font-size:.93rem}
-    .links a:hover{color:var(--blue)}
-    main{width:min(880px,90%);margin:50px auto 70px}
-    .hero{padding:20px 0 30px}
-    .tag{color:var(--blue);letter-spacing:3px;text-transform:uppercase;font-size:.78rem;font-weight:bold}
-    h1{font-size:clamp(2.4rem,7vw,4rem);line-height:1.15;letter-spacing:-1.5px;margin:12px 0}
-    .subtitle,.updated{color:var(--muted)}
-    .subtitle{font-size:1.05rem}
-    .updated{font-size:.9rem}
-    .policy{
-      padding:25px 28px;margin:17px 0;background:rgba(16,26,44,.88);
-      border:1px solid var(--border);border-radius:16px;
+
+    a { color:var(--cyan); }
+
+    .container {
+      width:min(var(--width),90%);
+      margin:auto;
     }
-    h2{color:var(--blue);font-size:1.2rem;margin:0 0 12px}
-    p{margin:9px 0}
-    ul{padding-left:24px}
-    li{margin:7px 0}
-    footer{border-top:1px solid var(--border);padding:28px 15px;text-align:center;color:var(--muted)}
-    footer p{margin:6px}
-    footer a{margin:0 8px;text-decoration:none}
-    @media(max-width:600px){
-      header{padding:14px 4%}
-      nav{justify-content:center}
-      .links{justify-content:center;gap:13px}
-      main{width:92%;margin:28px auto 45px}
-      .policy{padding:20px}
+
+    header {
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(5,7,13,.78);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav {
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:11px;
+      color:var(--text);
+      text-decoration:none;
+      font:700 1.2rem "Space Grotesk",sans-serif;
+      letter-spacing:2px;
+    }
+
+    .brand img {
+      width:40px;
+      height:40px;
+      object-fit:contain;
+      border-radius:11px;
+    }
+
+    .navlinks {
+      display:flex;
+      align-items:center;
+      gap:26px;
+    }
+
+    .navlinks a {
+      color:var(--muted);
+      text-decoration:none;
+      font-size:.91rem;
+      transition:.2s;
+    }
+
+    .navlinks a:hover,
+    .navlinks a.active {
+      color:var(--cyan);
+    }
+
+    .navlinks .invite {
+      color:var(--cyan);
+      font-weight:700;
+    }
+
+    .menu {
+      display:none;
+      background:transparent;
+      color:white;
+      border:1px solid var(--border);
+      border-radius:11px;
+      padding:8px 12px;
+      font-size:1.15rem;
+      cursor:pointer;
+    }
+
+    main {
+      width:min(850px,90%);
+      margin:65px auto 90px;
+    }
+
+    .hero {
+      padding:15px 0 36px;
+      animation:rise .7s ease both;
+    }
+
+    .tag {
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:#9cecff;
+      background:rgba(0,213,255,.07);
+      border:1px solid rgba(0,213,255,.2);
+      border-radius:30px;
+      padding:7px 13px;
+      font-size:.75rem;
+      font-weight:700;
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .tag:before {
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 12px var(--cyan);
+    }
+
+    h1,h2,h3 {
+      font-family:"Space Grotesk",sans-serif;
+    }
+
+    h1 {
+      font-size:clamp(2.8rem,8vw,5rem);
+      letter-spacing:-.065em;
+      line-height:1.05;
+      margin:20px 0 13px;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(100deg,#fff,#80eaff,#8596ff);
+      background-clip:text;
+      -webkit-background-clip:text;
+    }
+
+    .subtitle {
+      color:var(--muted);
+      font-size:1.05rem;
+      max-width:650px;
+      margin:0;
+    }
+
+    .updated {
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      margin-top:19px;
+      padding:9px 13px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:rgba(255,255,255,.025);
+      color:var(--muted);
+      font-size:.85rem;
+    }
+
+    .policy {
+      position:relative;
+      margin:16px 0;
+      padding:25px 28px;
+      border:1px solid var(--border);
+      border-radius:19px;
+      background:linear-gradient(145deg,rgba(15,26,43,.93),rgba(8,14,24,.94));
+      transition:transform .25s,border-color .25s;
+    }
+
+    .policy:hover {
+      transform:translateY(-3px);
+      border-color:rgba(0,213,255,.3);
+    }
+
+    .policy h2 {
+      display:flex;
+      align-items:center;
+      gap:13px;
+      margin:0 0 13px;
+      color:#a5edff;
+      font-size:1.16rem;
+      letter-spacing:-.3px;
+    }
+
+    .number {
+      display:grid;
+      place-items:center;
+      min-width:32px;
+      height:32px;
+      border-radius:10px;
+      background:rgba(0,213,255,.09);
+      border:1px solid rgba(0,213,255,.18);
+      color:var(--cyan);
+      font-size:.83rem;
+    }
+
+    .policy p {
+      color:#b2bfd2;
+      margin:9px 0;
+      font-size:.95rem;
+    }
+
+    .policy ul {
+      padding-left:23px;
+      color:#b2bfd2;
+    }
+
+    .policy li {
+      padding-left:4px;
+      margin:8px 0;
+      font-size:.94rem;
+    }
+
+    .policy li::marker {
+      color:var(--cyan);
+    }
+
+    .policy strong {
+      color:#e8f3ff;
+    }
+
+    .policy a {
+      text-decoration:none;
+      border-bottom:1px solid rgba(0,213,255,.35);
+    }
+
+    .policy a:hover {
+      border-color:var(--cyan);
+    }
+
+    .contact {
+      background:
+        radial-gradient(ellipse at top left,rgba(0,213,255,.1),transparent 65%),
+        linear-gradient(145deg,#101c2e,#090f1a);
+    }
+
+    footer {
+      border-top:1px solid var(--border);
+      padding:30px 5%;
+      color:var(--muted);
+      background:rgba(5,7,13,.7);
+    }
+
+    .footer-inner {
+      width:min(var(--width),100%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    footer p {
+      margin:4px 0;
+      font-size:.88rem;
+    }
+
+    footer strong {
+      color:white;
+      letter-spacing:2px;
+    }
+
+    footer a {
+      color:var(--muted);
+      text-decoration:none;
+      margin-left:17px;
+      font-size:.88rem;
+    }
+
+    footer a:hover { color:var(--cyan); }
+
+    .reveal {
+      opacity:0;
+      transform:translateY(20px);
+      transition:opacity .65s ease,transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes rise {
+      from { opacity:0;transform:translateY(20px); }
+      to { opacity:1;transform:translateY(0); }
+    }
+
+    @media(max-width:650px) {
+      nav { min-height:68px; }
+      .menu { display:block; }
+
+      .navlinks {
+        display:none;
+        position:absolute;
+        top:68px;
+        left:5%;
+        right:5%;
+        padding:14px;
+        border:1px solid var(--border);
+        border-radius:15px;
+        background:#0a111e;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+      }
+
+      .navlinks.open { display:flex; }
+      .navlinks a { padding:11px 8px; }
+      main { margin:38px auto 55px; }
+      .policy { padding:21px 19px; }
+      .policy h2 { font-size:1.05rem; }
+      .footer-inner { justify-content:center;text-align:center; }
+      footer a { margin:0 7px; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior:auto!important;
+        animation-duration:.01ms!important;
+        transition-duration:.01ms!important;
+      }
+      .reveal { opacity:1;transform:none; }
     }
   </style>
 </head>
+
 <body>
 <header>
-  <nav>
+  <nav class="container">
     <a class="brand" href="index.html">
-      <img src="assets/frezix-logo.png" alt="Frezix logo">
+      <img src="assets/frezix-logo.png" alt="Frezix">
       <span>FREZIX</span>
     </a>
-    <div class="links">
+
+    <button class="menu" id="menu" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <div class="navlinks" id="navlinks">
       <a href="index.html">Home</a>
-      <a href="tos.html">Terms</a>
+      <a class="active" href="tos.html">Terms</a>
       <a href="privacy.html">Privacy</a>
-      <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support</a>
+      <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support ↗</a>
+      <a class="invite" href="/invite">Add Bot ↗</a>
     </div>
   </nav>
 </header>
@@ -83,82 +401,146 @@
 <main>
   <div class="hero">
     <div class="tag">Legal information</div>
-    <h1>Terms of Service</h1>
-    <p class="subtitle">The rules and conditions for using Frezix.</p>
-    <p class="updated">Effective date: October 10, 2026</p>
+    <h1>Terms of <span class="gradient">Service.</span></h1>
+    <p class="subtitle">
+      Please review these terms before using Frezix. They explain the conditions
+      and responsibilities associated with using our Discord bot.
+    </p>
+    <div class="updated">◷ Effective date: October 10, 2026</div>
   </div>
 
-  <section class="policy">
-    <h2>1. Acceptance of These Terms</h2>
-    <p>By inviting, accessing or using Frezix, you agree to these Terms of Service. If you do not agree, stop using the bot and remove it from your Discord server.</p>
+  <section class="policy reveal">
+    <h2><span class="number">01</span> Acceptance of These Terms</h2>
+    <p>By inviting, accessing or using Frezix, you agree to these Terms of Service. If you do not agree with these terms, you should stop using Frezix and remove it from your Discord server.</p>
   </section>
 
-  <section class="policy">
-    <h2>2. About Frezix</h2>
-    <p>Frezix is a Discord bot developed by Febreze Gamerz. Its features may include utility commands, invite tracking, server information, moderation tools, role management, welcome and farewell messages, temporary roles, and configurable messages or embeds.</p>
-    <p>Features may change, be limited or become unavailable without notice.</p>
-  </section>
-
-  <section class="policy">
-    <h2>3. Acceptable Use</h2>
-    <p>You agree not to:</p>
+  <section class="policy reveal">
+    <h2><span class="number">02</span> About Frezix</h2>
+    <p>Frezix is a Discord bot developed by Febreze Gamerz. Its features may include:</p>
     <ul>
-      <li>Use Frezix to violate applicable laws or Discord's rules and policies.</li>
-      <li>Abuse, exploit, disrupt or attempt to damage the bot or its features.</li>
-      <li>Use bot commands to harass others, evade moderation or facilitate harmful activity.</li>
-      <li>Attempt to access information, commands or permissions you are not authorized to use.</li>
-      <li>Misuse invite tracking, role management or moderation features.</li>
-      <li>Use Frezix in a way that interferes with other users' access to the bot.</li>
+      <li>Utility and server information commands.</li>
+      <li>Moderation and administrative tools.</li>
+      <li>Invite tracking and statistics.</li>
+      <li>Role management and autoroles.</li>
+      <li>Welcome and farewell messages.</li>
+      <li>Temporary roles and configurable messages or embeds.</li>
+    </ul>
+    <p>Features may be modified, restricted, temporarily unavailable or discontinued as the bot develops.</p>
+  </section>
+
+  <section class="policy reveal">
+    <h2><span class="number">03</span> Acceptable Use</h2>
+    <p>When using Frezix, you agree not to:</p>
+    <ul>
+      <li>Use the bot to violate applicable laws or Discord's Terms of Service and policies.</li>
+      <li>Abuse, exploit, disrupt or attempt to damage the bot or its infrastructure.</li>
+      <li>Use bot commands to harass others or facilitate harmful activity.</li>
+      <li>Attempt to access commands, information or permissions without authorization.</li>
+      <li>Misuse invite tracking, moderation or role management features.</li>
+      <li>Interfere with the normal operation of the bot or other users' access to it.</li>
     </ul>
   </section>
 
-  <section class="policy">
-    <h2>4. Permissions and Moderation</h2>
-    <p>Some commands require specific Discord permissions. Server owners and administrators are responsible for deciding who can use administrative and moderation commands and for assigning appropriate permissions to the bot.</p>
-    <p>Users should check command targets and outcomes before taking action. The developer is not responsible for misuse of permissions by server staff or users, to the extent permitted by applicable law.</p>
+  <section class="policy reveal">
+    <h2><span class="number">04</span> Permissions and Moderation</h2>
+    <p>Some commands require specific Discord permissions. Server owners and administrators are responsible for:</p>
+    <ul>
+      <li>Deciding which members can use administrative commands.</li>
+      <li>Assigning appropriate permissions to Frezix.</li>
+      <li>Configuring moderation and role management features responsibly.</li>
+      <li>Reviewing command targets and outcomes before taking action.</li>
+    </ul>
+    <p>Server administrators are responsible for how they configure and use the bot within their communities, to the extent permitted by applicable law.</p>
   </section>
 
-  <section class="policy">
-    <h2>5. Availability and Changes</h2>
-    <p>Frezix is provided on an “as available” basis. We do not guarantee uninterrupted operation, error-free results or permanent availability of any feature. Commands, functionality and access may be changed, restricted, suspended or discontinued.</p>
+  <section class="policy reveal">
+    <h2><span class="number">05</span> Availability and Changes</h2>
+    <p>Frezix is provided on an as-available basis. We do not guarantee uninterrupted operation, error-free results or permanent availability of any feature.</p>
+    <p>Commands, functionality, access and supported features may be changed, restricted, suspended or discontinued without prior notice where reasonably necessary.</p>
   </section>
 
-  <section class="policy">
-    <h2>6. Disclaimer and Limitation of Liability</h2>
-    <p>To the extent permitted by applicable law, Frezix is provided without warranties of any kind. Febreze Gamerz is not liable for indirect or consequential losses, including loss of server configurations or invite statistics, or disruption resulting from downtime, errors or misuse.</p>
+  <section class="policy reveal">
+    <h2><span class="number">06</span> Disclaimer and Limitation of Liability</h2>
+    <p>To the extent permitted by applicable law, Frezix is provided without warranties of any kind, whether express or implied.</p>
+    <p>Febreze Gamerz is not liable for indirect or consequential losses, including loss of server configurations or invite statistics, or disruption resulting from downtime, errors or misuse.</p>
     <p>Nothing in these terms excludes or limits liability where doing so would be unlawful.</p>
   </section>
 
-  <section class="policy">
-    <h2>7. Third-Party Services</h2>
-    <p>Frezix operates through Discord. Your use of Discord is also subject to Discord's own terms, policies and privacy practices. We do not control Discord or guarantee the availability of its services.</p>
+  <section class="policy reveal">
+    <h2><span class="number">07</span> Third-Party Services</h2>
+    <p>Frezix operates through Discord. Your use of Discord is also subject to Discord's own Terms of Service, policies and privacy practices.</p>
+    <p>We do not control Discord and are not responsible for its services, availability or independent data practices.</p>
   </section>
 
-  <section class="policy">
-    <h2>8. Privacy</h2>
-    <p>Your use of Frezix is also covered by our <a href="privacy.html">Privacy Policy</a>, which describes the information the bot may process and how to contact us with privacy questions or data requests.</p>
+  <section class="policy reveal">
+    <h2><span class="number">08</span> Privacy</h2>
+    <p>Your use of Frezix is also covered by our <a href="privacy.html">Privacy Policy</a>, which explains the information the bot may process, why it may be processed and how to contact us regarding privacy questions or data requests.</p>
   </section>
 
-  <section class="policy">
-    <h2>9. Suspension or Restriction</h2>
+  <section class="policy reveal">
+    <h2><span class="number">09</span> Suspension or Restriction</h2>
     <p>Access to Frezix or particular features may be restricted where reasonably necessary to address abuse, security concerns, violations of these terms or operational issues.</p>
   </section>
 
-  <section class="policy">
-    <h2>10. Changes to These Terms</h2>
-    <p>These terms may be updated from time to time. The latest version will be published on this page with its effective date. Where required by applicable law, we will provide notice of material changes. Continued use of Frezix after an update constitutes acceptance to the extent permitted by law.</p>
+  <section class="policy reveal">
+    <h2><span class="number">10</span> Changes to These Terms</h2>
+    <p>These terms may be updated from time to time. The latest version will be published on this page with its effective date.</p>
+    <p>Where required by applicable law, notice of material changes will be provided. Continued use of Frezix after an update constitutes acceptance only to the extent permitted by applicable law.</p>
   </section>
 
-  <section class="policy">
-    <h2>11. Contact and Support</h2>
-    <p>If you have questions about these terms or need assistance, visit the <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">official Frezix support Discord server</a>.</p>
-    <p>Developer: Febreze Gamerz</p>
+  <section class="policy contact reveal">
+    <h2><span class="number">11</span> Contact and Support</h2>
+    <p>Have questions about these terms or need assistance with Frezix?</p>
+    <p>Visit our <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">official Frezix support Discord server</a>.</p>
+    <p><strong>Developer:</strong> Febreze Gamerz</p>
   </section>
 </main>
 
 <footer>
-  <p>© 2026 Febreze Gamerz. All rights reserved.</p>
-  <p><a href="index.html">Home</a><a href="tos.html">Terms of Service</a><a href="privacy.html">Privacy Policy</a><a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support</a></p>
+  <div class="footer-inner">
+    <div>
+      <p><strong>FREZIX</strong> · Developed by Febreze Gamerz</p>
+      <p>© <span id="year"></span> Febreze Gamerz. All rights reserved.</p>
+    </div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="tos.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="https://discord.gg/JjrcaTUny7" target="_blank" rel="noopener noreferrer">Support</a>
+    </div>
+  </div>
 </footer>
+
+<script>
+  const menu = document.getElementById("menu");
+  const links = document.getElementById("navlinks");
+
+  menu.addEventListener("click", () => {
+    const open = links.classList.toggle("open");
+    menu.setAttribute("aria-expanded", String(open));
+    menu.textContent = open ? "✕" : "☰";
+  });
+
+  links.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      links.classList.remove("open");
+      menu.setAttribute("aria-expanded", "false");
+      menu.textContent = "☰";
+    });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
